@@ -24,7 +24,14 @@
     <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
   </head>
 
-  <body>
-    <div id="root"></div>
+  <body style="background-color: red; color: white; font-size: 24px; padding: 20px;">
+    <div style="background-color: blue; padding: 20px; margin: 20px;">
+      TEST HTML DIRECT - Si vous voyez ceci, le HTML se charge !
+    </div>
+    <div id="root">React app should render here...</div>
+    <script>
+      console.log("🧪 HTML script tag executing...");
+      document.body.insertAdjacentHTML('beforeend', '<div style="background-color: green; color: white; padding: 10px; margin: 10px;">JavaScript is working!</div>');
+    </script>
   </body>
 </html>
