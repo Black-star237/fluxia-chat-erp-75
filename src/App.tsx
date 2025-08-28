@@ -25,6 +25,7 @@ import Profile from "./pages/Profile";
 import Notifications from "./pages/Notifications";
 import Auth from "./pages/Auth";
 import CompanySetup from "./pages/CompanySetup";
+import TestComponent from "./TestComponent";
 import { PwaInstallPrompt } from "./components/PwaInstallPrompt";
 
 // Lazy load heavy IA page
@@ -33,46 +34,53 @@ const AssistantIA = React.lazy(() => import("./pages/AssistantIA"));
 const queryClient = new QueryClient();
 
 const App = () => {
+  console.log("🚀 App component rendering...");
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <AuthProvider>
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Layout><Index /></Layout>} />
-              <Route path="/stocks" element={<Layout><Stocks /></Layout>} />
-              <Route path="/product/:id" element={<Layout><ProductDetail /></Layout>} />
-              <Route path="/add-product" element={<Layout><AddProduct /></Layout>} />
-              <Route path="/facturation" element={<Layout><Facturation /></Layout>} />
-              <Route path="/entreprises" element={<Layout><Entreprises /></Layout>} />
-              <Route path="/equipe" element={<Layout><Equipe /></Layout>} />
-              <Route path="/promotions" element={<Layout><Promotions /></Layout>} />
-              <Route path="/categories" element={<Layout><Categories /></Layout>} />
-              <Route path="/rapports" element={<Layout><Rapports /></Layout>} />
-              <Route path="/clients" element={<Layout><Clients /></Layout>} />
-              <Route path="/client/:id" element={<Layout><ClientDetail /></Layout>} />
-              <Route path="/vente" element={<Layout><Vente /></Layout>} />
-              <Route path="/parametres" element={<Layout><Parametres /></Layout>} />
-              <Route path="/notifications" element={<Layout><Notifications /></Layout>} />
-              <Route path="/profile" element={<Layout><Profile /></Layout>} />
-              <Route path="/auth" element={<Auth />} />
-              <Route path="/company-setup" element={<CompanySetup />} />
-              <Route
-                path="/assistant-ia"
-                element={
-                  <Suspense fallback={<div>Chargement de l'assistant IA...</div>}>
-                    <Layout><AssistantIA /></Layout>
-                  </Suspense>
-                }
-              />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-            <Toaster />
-            <PwaInstallPrompt />
-          </BrowserRouter>
-        </AuthProvider>
-      </TooltipProvider>
-    </QueryClientProvider>
+    <div style={{ backgroundColor: 'blue', minHeight: '100vh', padding: '20px' }}>
+      <TestComponent />
+      <div style={{ backgroundColor: 'green', color: 'white', padding: '10px', margin: '10px' }}>
+        App wrapper visible
+      </div>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <AuthProvider>
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Layout><Index /></Layout>} />
+                <Route path="/stocks" element={<Layout><Stocks /></Layout>} />
+                <Route path="/product/:id" element={<Layout><ProductDetail /></Layout>} />
+                <Route path="/add-product" element={<Layout><AddProduct /></Layout>} />
+                <Route path="/facturation" element={<Layout><Facturation /></Layout>} />
+                <Route path="/entreprises" element={<Layout><Entreprises /></Layout>} />
+                <Route path="/equipe" element={<Layout><Equipe /></Layout>} />
+                <Route path="/promotions" element={<Layout><Promotions /></Layout>} />
+                <Route path="/categories" element={<Layout><Categories /></Layout>} />
+                <Route path="/rapports" element={<Layout><Rapports /></Layout>} />
+                <Route path="/clients" element={<Layout><Clients /></Layout>} />
+                <Route path="/client/:id" element={<Layout><ClientDetail /></Layout>} />
+                <Route path="/vente" element={<Layout><Vente /></Layout>} />
+                <Route path="/parametres" element={<Layout><Parametres /></Layout>} />
+                <Route path="/notifications" element={<Layout><Notifications /></Layout>} />
+                <Route path="/profile" element={<Layout><Profile /></Layout>} />
+                <Route path="/auth" element={<Auth />} />
+                <Route path="/company-setup" element={<CompanySetup />} />
+                <Route
+                  path="/assistant-ia"
+                  element={
+                    <Suspense fallback={<div>Chargement de l'assistant IA...</div>}>
+                      <Layout><AssistantIA /></Layout>
+                    </Suspense>
+                  }
+                />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+              <Toaster />
+              <PwaInstallPrompt />
+            </BrowserRouter>
+          </AuthProvider>
+        </TooltipProvider>
+      </QueryClientProvider>
+    </div>
   );
 };
 

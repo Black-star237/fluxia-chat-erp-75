@@ -13,6 +13,7 @@ interface LayoutProps {
 }
 
 export default function Layout({ children }: LayoutProps) {
+  console.log("🏗️ Layout component rendering...");
   const navigate = useNavigate();
   const location = useLocation();
   const isAssistantPage = location.pathname === '/assistant';

@@ -44,6 +44,7 @@ const heroSlides = [
 ];
 
 const Index = () => {
+  console.log("🏠 Index page rendering...");
   const { company } = useCurrentCompany();
 
   return (

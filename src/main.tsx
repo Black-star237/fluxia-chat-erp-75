@@ -3,7 +3,9 @@ import App from './App.tsx'
 import './index.css'
 
 console.log("Script main.tsx chargé avec succès !");
+console.log("🔧 Mounting React app...");
 createRoot(document.getElementById("root")!).render(<App />);
+console.log("✅ React app mounted successfully!");
 
 // Register service worker for PWA
 if ('serviceWorker' in navigator) {
