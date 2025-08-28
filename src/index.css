@@ -1,0 +1,166 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Fluxiabiz ERP Design System - Modern Dark Mobile-First */
+
+@layer base {
+  :root {
+    /* Light theme as default */
+    --background: url('/fondb.jpg') no-repeat center center fixed;
+    --background-color: 0 0% 100%;
+    --foreground: 215 25% 15%;
+
+    /* Cards & Surfaces - Light */
+    --card: 0 0% 100%;
+    --card-foreground: 215 25% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 25% 15%;
+
+    /* Primary - Modern Orange Accent */
+    --primary: 25 95% 58%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 25 95% 75%;
+    --primary-dark: 25 95% 45%;
+
+    /* Secondary - Subtle Light Surface */
+    --secondary: 215 20% 96%;
+    --secondary-foreground: 215 25% 15%;
+
+    /* Success - Modern Green */
+    --success: 142 70% 45%;
+    --success-foreground: 0 0% 100%;
+    --success-light: 142 70% 85%;
+
+    /* Warning - Vibrant Orange */
+    --warning: 25 95% 58%;
+    --warning-foreground: 0 0% 0%;
+    --warning-light: 25 95% 85%;
+
+    /* Muted & Subtle - Light Variants */
+    --muted: 215 20% 96%;
+    --muted-foreground: 215 15% 45%;
+
+    --accent: 213 94% 95%;
+    --accent-foreground: 213 94% 20%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Borders & Inputs - Light */
+    --border: 215 15% 90%;
+    --input: 215 15% 92%;
+    --ring: 25 95% 58%;
+
+    --radius: 1rem;
+
+    /* Modern Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-dark)) 100%);
+    --gradient-success: linear-gradient(135deg, hsl(var(--success)) 0%, hsl(142 70% 35%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(var(--card)) 0%, hsl(var(--card)) 100%);
+
+    /* Enhanced Shadows */
+    --shadow-sm: 0 2px 8px hsl(0 0% 0% / 0.15);
+    --shadow-md: 0 4px 16px hsl(0 0% 0% / 0.25);
+    --shadow-lg: 0 8px 32px hsl(0 0% 0% / 0.35);
+    --shadow-primary: 0 4px 24px hsl(var(--primary) / 0.3);
+
+    /* Sidebar Variables */
+    --sidebar-background: 215 25% 98%;
+    --sidebar-foreground: 215 25% 15%;
+    --sidebar-primary: 213 94% 68%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 213 94% 95%;
+    --sidebar-accent-foreground: 213 94% 20%;
+    --sidebar-border: 215 15% 90%;
+    --sidebar-ring: 213 94% 68%;
+  }
+
+  .dark {
+    /* Dark theme */
+    --background: url('/fond.jpg') no-repeat center center fixed;
+    --background-color: 222 15% 8%;
+    --foreground: 0 0% 95%;
+
+    /* Sidebar - Dark */
+    --sidebar-background: 222 15% 12%;
+    --sidebar-foreground: 0 0% 95%;
+
+    /* Cards & Surfaces - Dark */
+    --card: 222 15% 12%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 222 15% 12%;
+    --popover-foreground: 0 0% 95%;
+
+    /* Secondary - Subtle Dark Surface */
+    --secondary: 222 15% 15%;
+    --secondary-foreground: 0 0% 85%;
+
+    /* Muted & Subtle - Dark Variants */
+    --muted: 222 15% 15%;
+    --muted-foreground: 0 0% 60%;
+
+    --accent: 222 15% 18%;
+    --accent-foreground: 0 0% 90%;
+
+    /* Borders & Inputs - Dark */
+    --border: 222 15% 20%;
+    --input: 222 15% 18%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply text-foreground antialiased;
+    background: var(--background) var(--background-color) !important;
+    background-size: cover !important;
+    font-feature-settings: "lig" 1, "calt" 1;
+  }
+
+  /* Modern Card Styles */
+  .modern-card {
+    @apply bg-card backdrop-blur-sm border border-border/50 shadow-lg dark:bg-[hsl(var(--card))];
+  }
+
+  /* Glass Effect */
+  .glass-effect {
+    @apply bg-card/80 backdrop-blur-md border border-border/20;
+  }
+
+  /* Status Pills */
+  .status-pill {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium;
+  }
+
+  .status-success {
+    @apply bg-success/20 text-success border border-success/30;
+  }
+
+  .status-warning {
+    @apply bg-warning/20 text-warning border border-warning/30;
+  }
+
+  .status-primary {
+    @apply bg-primary/20 text-primary border border-primary/30;
+  }
+
+  /* Modern Animations */
+  .hover-lift {
+    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+  }
+
+  .fade-in {
+    @apply animate-[fadeIn_0.5s_ease-out];
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
