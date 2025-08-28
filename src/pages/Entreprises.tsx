@@ -131,7 +131,6 @@ export default function Entreprises() {
         </div>
         
         <div className="flex flex-col sm:flex-row gap-2">
-          <JoinCompanyDialog onRequestSent={fetchUserCompanies} />
           <Dialog open={showCreateDialog} onOpenChange={setShowCreateDialog}>
             <DialogTrigger asChild>
               <Button className="flex items-center gap-2">
@@ -285,20 +284,6 @@ export default function Entreprises() {
         </Card>
       </div>
 
-      {/* Notifications Section */}
-      <div className="mt-8">
-        <h2 className="text-xl font-semibold mb-4">Notifications</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <InvitationsReceived />
-          <InvitationsSent />
-        </div>
-      </div>
-
-      {/* Membership Requests Section */}
-      <div className="mt-8">
-        <h2 className="text-xl font-semibold mb-4">Demandes d'adhésion</h2>
-        <MembershipRequests />
-      </div>
     </div>
   );
 }

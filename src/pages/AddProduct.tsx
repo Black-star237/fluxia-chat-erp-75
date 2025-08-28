@@ -169,6 +169,7 @@ export default function AddProduct() {
       const productData = {
         name: formData.name,
         description: formData.description || '',
+        selling_price: formData.sellingPriceMax || 0,
         min_price: formData.sellingPriceMin,
         max_price: formData.sellingPriceMax,
         cost_price: formData.purchasePrice || 0,

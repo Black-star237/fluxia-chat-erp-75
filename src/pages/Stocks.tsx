@@ -429,7 +429,7 @@ export default function Stocks() {
                   <div className="flex sm:flex-col items-end sm:items-end justify-between sm:justify-start gap-2">
                     <div className="text-right">
                       <div className="text-lg font-bold text-foreground">
-                        {(item.max_price || 0).toFixed(0)} FCFA
+                        {(item.selling_price || 0).toFixed(0)} FCFA
                       </div>
                       <div className="text-sm text-muted-foreground">
                         Valeur stock: {((item.cost_price || 0) * item.current_stock).toFixed(0)} FCFA
@@ -489,7 +489,7 @@ export default function Stocks() {
                   </TableCell>
                   <TableCell>{item.categories?.name || 'Aucune'}</TableCell>
                   <TableCell>{item.current_stock}</TableCell>
-                  <TableCell>{(item.max_price || 0).toFixed(0)} FCFA</TableCell>
+                  <TableCell>{(item.selling_price || 0).toFixed(0)} FCFA</TableCell>
                   <TableCell>{getStatusBadge(item)}</TableCell>
                   <TableCell>
                     <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>

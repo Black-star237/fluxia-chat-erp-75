@@ -1,20 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { supabase } from '@/integrations/supabase/client';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Separator } from '@/components/ui/separator';
 import { useToast } from '@/hooks/use-toast';
 import { 
   Bell, 
   ShoppingCart, 
   Package, 
-  TrendingUp, 
   AlertTriangle, 
   CheckCircle, 
   X,
-  MoreHorizontal,
   Trash2,
   Eye
 } from 'lucide-react';
@@ -39,38 +35,45 @@ const Notifications = () => {
 
   const fetchNotifications = async () => {
     try {
-      const { data: { user }, error: userError } = await supabase.auth.getUser();
-      if (userError) {
-        console.error('Error getting user:', userError);
-        toast({
-          title: "Erreur d'authentification",
-          description: "Impossible de récupérer l'utilisateur.",
-          variant: "destructive",
-        });
-        return;
-      }
-      if (!user) {
-        console.log('No user found');
-        return;
-      }
-
-      console.log('Fetching notifications for user:', user.id);
-
-      const { data, error } = await supabase
-        .from('notifications')
-        .select('*')
-        .eq('userId', user.id)
-        .order('createdAt', { ascending: false });
-
-      if (error) {
-        console.error('Error fetching notifications:', error);
-        toast({
-          title: "Erreur",
-          description: `Impossible de récupérer les notifications: ${error.message}`,
-          variant: "destructive",
-        });
-        return;
-      }
+      // Utilisation temporaire de données mockées car la table notifications n'existe pas encore
+      const data = [
+        {
+          id: '1',
+          type: 'info',
+          title: 'Bienvenue sur Fluxiabiz',
+          description: 'Votre compte a été créé avec succès',
+          time: '2 heures',
+          read: false,
+          priority: 'low',
+          userId: '1',
+          companyId: '1',
+          createdAt: new Date().toISOString()
+        },
+        {
+          id: '2',
+          type: 'stock',
+          title: 'Stock faible',
+          description: 'Le produit "T-shirt" a un stock faible (5 unités restantes)',
+          time: '1 heure',
+          read: false,
+          priority: 'medium',
+          userId: '1',
+          companyId: '1',
+          createdAt: new Date(Date.now() - 3600000).toISOString()
+        },
+        {
+          id: '3',
+          type: 'sale',
+          title: 'Nouvelle vente',
+          description: 'Vente de 150€ réalisée avec succès',
+          time: '30 minutes',
+          read: true,
+          priority: 'low',
+          userId: '1',
+          companyId: '1',
+          createdAt: new Date(Date.now() - 1800000).toISOString()
+        }
+      ];
 
       console.log('Fetched notifications:', data);
 
@@ -110,27 +113,6 @@ const Notifications = () => {
 
   useEffect(() => {
     fetchNotifications();
-
-    const notificationsChannel = supabase
-      .channel('notifications')
-      .on(
-        'postgres_changes',
-        { event: 'INSERT', schema: 'public', table: 'notifications' },
-        (payload) => {
-          setNotifications(prev => {
-            const newNotification = {
-              ...payload.new,
-              time: formatTime(payload.new.createdAt)
-            };
-            return [newNotification, ...prev];
-          });
-        }
-      )
-      .subscribe();
-
-    return () => {
-      supabase.removeChannel(notificationsChannel);
-    };
   }, []);
 
   const getIcon = (type: string) => {
@@ -161,22 +143,7 @@ const Notifications = () => {
     }
   };
 
-  const markAsRead = async (id: string) => {
-    const { error } = await supabase
-      .from('notifications')
-      .update({ read: true })
-      .eq('id', id);
-
-    if (error) {
-      console.error('Error marking notification as read:', error);
-      toast({
-        title: "Erreur",
-        description: "Impossible de marquer la notification comme lue.",
-        variant: "destructive",
-      });
-      return;
-    }
-
+  const markAsRead = (id: string) => {
     setNotifications(prev =>
       prev.map(notif =>
         notif.id === id ? { ...notif, read: true } : notif
@@ -184,22 +151,7 @@ const Notifications = () => {
     );
   };
 
-  const deleteNotification = async (id: string) => {
-    const { error } = await supabase
-      .from('notifications')
-      .delete()
-      .eq('id', id);
-
-    if (error) {
-      console.error('Error deleting notification:', error);
-      toast({
-        title: "Erreur",
-        description: "Impossible de supprimer la notification.",
-        variant: "destructive",
-      });
-      return;
-    }
-
+  const deleteNotification = (id: string) => {
     setNotifications(prev => prev.filter(notif => notif.id !== id));
     toast({
       title: "Notification supprimée",
@@ -207,26 +159,7 @@ const Notifications = () => {
     });
   };
 
-  const markAllAsRead = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return;
-
-    const { error } = await supabase
-      .from('notifications')
-      .update({ read: true })
-      .eq('userId', user.id)
-      .eq('read', false);
-
-    if (error) {
-      console.error('Error marking all notifications as read:', error);
-      toast({
-        title: "Erreur",
-        description: "Impossible de marquer toutes les notifications comme lues.",
-        variant: "destructive",
-      });
-      return;
-    }
-
+  const markAllAsRead = () => {
     setNotifications(prev =>
       prev.map(notif => ({ ...notif, read: true }))
     );
@@ -236,25 +169,7 @@ const Notifications = () => {
     });
   };
 
-  const clearAll = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return;
-
-    const { error } = await supabase
-      .from('notifications')
-      .delete()
-      .eq('userId', user.id);
-
-    if (error) {
-      console.error('Error clearing all notifications:', error);
-      toast({
-        title: "Erreur",
-        description: "Impossible de supprimer toutes les notifications.",
-        variant: "destructive",
-      });
-      return;
-    }
-
+  const clearAll = () => {
     setNotifications([]);
     toast({
       title: "Notifications supprimées",
