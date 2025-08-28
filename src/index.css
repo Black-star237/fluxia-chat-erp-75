@@ -7,8 +7,7 @@
 @layer base {
   :root {
     /* Light theme as default */
-    --background: url('/fondb.jpg') no-repeat center center fixed;
-    --background-color: 0 0% 100%;
+    --background: 0 0% 100%;
     --foreground: 215 25% 15%;
 
     /* Cards & Surfaces - Light */
@@ -79,8 +78,7 @@
 
   .dark {
     /* Dark theme */
-    --background: url('/fond.jpg') no-repeat center center fixed;
-    --background-color: 222 15% 8%;
+    --background: 222 15% 8%;
     --foreground: 0 0% 95%;
 
     /* Sidebar - Dark */
@@ -117,10 +115,17 @@
   }
 
   body {
-    @apply text-foreground antialiased;
-    background: var(--background) var(--background-color) !important;
-    background-size: cover !important;
+    @apply bg-background text-foreground antialiased;
+    background-image: url('/fondb.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
     font-feature-settings: "lig" 1, "calt" 1;
+  }
+
+  body.dark {
+    background-image: url('/fond.jpg');
   }
 
   /* Modern Card Styles */
